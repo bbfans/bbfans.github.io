@@ -1,0 +1,29 @@
+# Node.js dependencies
+node_modules/
+
+# Hexo generated files
+public/
+db.json
+
+# Hexo deployment
+.deploy*/
+.deploy_git/
+
+# Log files
+npm-debug.log*
+yarn-error.log*
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Other files to ignore
+*.local
+.env
