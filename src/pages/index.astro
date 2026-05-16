@@ -1,49 +1,266 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+const projects = (await getCollection('projects'))
+	.filter(p => p.data.highlight)
+	.sort((a, b) => (b.data.pubDate?.getTime() || 0) - (a.data.pubDate?.getTime() || 0))
+	.slice(0, 3);
+
+const changelogs = (await getCollection('changelog'))
+	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+	.slice(0, 3);
+
+const blogFeatured = (await getCollection('blog'))
+	.filter(p => p.data.featured)
+	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+	.slice(0, 3);
+
+const blogRecent = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+	.slice(0, 3);
+
+const posts = blogFeatured.length ? blogFeatured : blogRecent;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			:root {
+				--accent: #2337ff;
+			}
+			main {
+				width: min(960px, calc(100% - 2em));
+				padding: 3em 1em;
+			}
+			/* ── Hero ── */
+			.hero {
+				text-align: center;
+				padding: 4em 0 2.5em;
+			}
+			.hero h1 {
+				font-size: clamp(2em, 5vw, 3.2em);
+				margin-bottom: 0.35em;
+				letter-spacing: -0.02em;
+			}
+			.hero p {
+				font-size: 1.15em;
+				color: rgb(var(--gray));
+				margin: 0;
+			}
+			/* ── Sections ── */
+			section {
+				margin-bottom: 3.5em;
+			}
+			section h2 {
+				font-size: 1.4em;
+				margin-bottom: 1em;
+				letter-spacing: -0.01em;
+			}
+			/* ── Project cards ── */
+			.project-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				gap: 1.5em;
+			}
+			.project-card {
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 12px;
+				padding: 1.4em;
+				transition: box-shadow 0.2s, border-color 0.2s;
+			}
+			.project-card:hover {
+				border-color: var(--accent);
+				box-shadow: var(--box-shadow);
+			}
+			.project-card h3 {
+				font-size: 1.2em;
+				margin: 0 0 0.4em;
+			}
+			.project-card h3 a {
+				text-decoration: none;
+				color: rgb(var(--black));
+			}
+			.project-card p {
+				font-size: 0.95em;
+				line-height: 1.55;
+				color: rgb(var(--gray));
+				margin: 0 0 0.8em;
+			}
+			@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+			.project-card { animation: fadein .35s ease-out both; }
+			.project-card:nth-child(2) { animation-delay: .06s; }
+			.project-card:nth-child(3) { animation-delay: .12s; }
+			.tags { display: flex; gap: .35em; flex-wrap: wrap; }
+			.tag {
+				font-size: .75em;
+				background: rgb(var(--gray-light));
+				padding: .15em .6em;
+				border-radius: 99px;
+				white-space: nowrap;
+			}
+			.status-badge {
+				font-size: .72em;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: .04em;
+				padding: .1em .55em;
+				border-radius: 99px;
+				margin-left: .4em;
+				vertical-align: middle;
+			}
+			.status-badge.shipping { background: #d1fae5; color: #065f46; }
+			.status-badge.active   { background: #ede9fe; color: #4c1d95; }
+			/* ── Changelog feed ── */
+			.changelog-feed {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: flex;
+				flex-direction: column;
+				gap: .75em;
+			}
+			.changelog-feed li {
+				display: flex;
+				align-items: baseline;
+				flex-wrap: wrap;
+				gap: .6em;
+			}
+			.changelog-feed time {
+				font-size: .85em;
+				color: rgb(var(--gray));
+				flex-shrink: 0;
+				font-variant-numeric: tabular-nums;
+			}
+			.changelog-feed li a {
+				font-weight: 700;
+			}
+			.changelog-desc {
+				font-size: .9em;
+				color: rgb(var(--gray));
+				margin: 0;
+				flex-basis: 100%;
+			}
+			/* ── Post feed ── */
+			.post-feed {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			.post-feed li {
+				padding: .8em 0;
+				border-bottom: 1px solid rgb(var(--gray-light));
+			}
+			.post-feed li:last-child { border-bottom: none; }
+			.post-feed a h3 {
+				margin: 0 0 .15em;
+				font-size: 1.1em;
+			}
+			.post-feed a {
+				text-decoration: none;
+				color: rgb(var(--black));
+			}
+			.post-feed li p {
+				font-size: .9em;
+				color: rgb(var(--gray));
+				margin: 0;
+			}
+			/* ── Divider ── */
+			hr {
+				border: none;
+				border-top: 1px solid rgb(var(--gray-light));
+				margin: 2em 0;
+			}
+			@media (max-width: 720px) {
+				main { padding: 1.5em 1em; }
+				.hero { padding: 2em 0 1.5em; }
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<!-- ══ Hero ══ -->
+			<section class="hero">
+				<h1>bbfans</h1>
+				<p>AI / Cloud / DevOps Engineer · Building developer tools and AI systems</p>
+			</section>
+
+			<hr />
+
+			<!-- ══ Featured Projects ══ -->
+			<section aria-labelledby="projects-heading">
+				<h2 id="projects-heading">🚀 Current Projects</h2>
+				{projects.length === 0 && <p>No highlighted projects yet. Watch this space.</p>}
+				<div class="project-grid">
+					{projects.map(p => (
+						<article class="project-card">
+							<h3>
+								<a href={p.data.url || p.data.repo || '#'} target={p.data.url ? '_blank' : undefined}>
+									{p.data.title}
+								</a>
+								<span class="status-badge {p.data.status}">{p.data.status}</span>
+							</h3>
+							<p>{p.data.description}</p>
+							<div class="tags">
+								{p.data.tags.map(t => <span class="tag">{t}</span>)}
+							</div>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<hr />
+
+			<!-- ══ Recent Shippings ══ -->
+			<section aria-labelledby="shipping-heading">
+				<h2 id="shipping-heading">📦 Recent Shippings</h2>
+				{changelogs.length === 0 && (
+					<p style="color:rgb(var(--gray))">No changelog entries yet. Add Markdown files to <code>src/content/changelog/</code>.</p>
+				)}
+				<ol class="changelog-feed">
+					{changelogs.map(c => (
+						<li>
+							<time datetime={c.data.pubDate.toISOString()}>
+								{c.data.pubDate.toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' })}
+							</time>
+							<a href={c.data.repo || '#'} target={c.data.repo ? '_blank' : undefined}>
+								{c.data.title}
+							</a>
+							<span class="status-badge {c.data.changeType}">{c.data.changeType}</span>
+							<p class="changelog-desc">{c.data.description}</p>
+						</li>
+					))}
+				</ol>
+				<p style="font-size:.85em;color:rgb(var(--gray));margin-top:.6em">
+					<a href="/changelog">View all →</a>
+				</p>
+			</section>
+
+			<hr />
+
+			<!-- ══ Latest Posts ══ -->
+			<section aria-labelledby="posts-heading">
+				<h2 id="posts-heading">📝 Latest Posts</h2>
+				<ul class="post-feed">
+					{posts.map(p => (
+						<li>
+							<a href={`/blog/${p.id}/`}>
+								<h3>{p.data.title}</h3>
+							</a>
+							<p>{p.data.description}</p>
+						</li>
+					))}
+				</ul>
+				<p style="font-size:.85em;color:rgb(var(--gray));margin-top:.6em">
+					<a href="/blog">All posts →</a>
+				</p>
+			</section>
 		</main>
 		<Footer />
 	</body>
