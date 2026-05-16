@@ -32,5 +32,9 @@
 		"dev": "astro dev",
 		"preview": "astro build && wrangler dev"
 	},
-	"type": "module"
+	"type": "module",
+	"optionalDependencies": {
+		"@rollup/rollup-darwin-arm64": "^4.60.4",
+		"@rollup/rollup-darwin-x64": "^4.60.4"
+	}
 }

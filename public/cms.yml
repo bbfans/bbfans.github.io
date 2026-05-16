@@ -1,0 +1,76 @@
+backend:
+  name: git-gateway
+  repo: bbfans/bbfans.github.io
+  base_url: https://bbfans-portal.pages.dev
+  auth_endpoint: /api/auth
+
+media_folder: "public/blog-images"
+public_folder: "https://img.1001020.xyz"
+
+collections:
+  - name: "blog"
+    label: "Posts"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    fields:
+      - label: "Title"
+        name: title
+        widget: string
+        required: true
+      - label: "Description"
+        name: description
+        widget: text
+        required: true
+      - label: "Publish Date"
+        name: pubDate
+        widget: datetime
+        required: true
+      - label: "Tags"
+        name: tags
+        widget: list
+        required: false
+        default: []
+      - label: "Hero Image"
+        name: heroImage
+        widget: image
+        required: false
+      - label: "Body"
+        name: body
+        widget: markdown
+        required: true
+
+  - name: "projects"
+    label: "Projects"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: "Title"
+        name: title
+        widget: string
+        required: true
+      - label: "Description"
+        name: description
+        widget: text
+        required: true
+      - label: "Status"
+        name: status
+        widget: select
+        options:
+          - "active"
+          - "shipping"
+          - "deprecated"
+        default: "active"
+      - label: "Highlight"
+        name: highlight
+        widget: boolean
+        default: false
+      - label: "URL"
+        name: url
+        widget: string
+        required: false
+      - label: "Publish Date"
+        name: pubDate
+        widget: datetime
+        required: false
