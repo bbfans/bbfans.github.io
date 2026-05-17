@@ -1,7 +1,7 @@
 ---
 title: "Kijiji Real-Time Monitor reaches production"
 description: "基于 Playwright + Telegram Bot 的 Kijiji 轮毂监控工具已达可用状态 · 自动检测新帖并推送通知"
-pubDate: 2025-05-18
+pubDate: 2026-05-18
 changeType: "new"
 project: "kijiji-real-time-monitor"
 ---

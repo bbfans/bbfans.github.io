@@ -1,7 +1,7 @@
 ---
 title: "Hermes Agent upgraded to cloudflare + Bifrost gateway"
 description: "Hermes Agent 全面迁移至 Cloudflare Workers 架构 · 新增 Bifrost 网关层与边缘推理路由"
-pubDate: 2025-04-10
+pubDate: 2026-04-10
 changeType: "new"
 project: "hermes-agent"
 ---

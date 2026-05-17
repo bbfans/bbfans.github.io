@@ -73,17 +73,27 @@ const posts = blogFeatured.length ? blogFeatured : blogRecent;
 			}
 			/* ── Hero ── */
 			.hero {
+				position: relative;
+				overflow: hidden;
 				text-align: center;
-				padding: 4em 0 2.5em;
+				padding: 4.5em 1.5em 3.25em;
+				border-radius: 12px;
+				background:
+					linear-gradient(rgba(10, 16, 30, 0.52), rgba(10, 16, 30, 0.68)),
+					url("/blog-placeholder-3.jpg") center / cover no-repeat;
+				box-shadow: 0 18px 44px rgba(var(--black), 16%);
 			}
 			.hero h1 {
+				position: relative;
 				font-size: clamp(2em, 5vw, 3.2em);
 				margin-bottom: 0.35em;
 				letter-spacing: -0.02em;
+				color: #fff;
 			}
 			.hero p {
+				position: relative;
 				font-size: 1.15em;
-				color: rgb(var(--gray));
+				color: rgba(255, 255, 255, 0.88);
 				margin: 0;
 			}
 			/* ── Sections ── */
@@ -214,7 +224,10 @@ const posts = blogFeatured.length ? blogFeatured : blogRecent;
 			}
 			@media (max-width: 720px) {
 				main { padding: 1.5em 1em; }
-				.hero { padding: 2em 0 1.5em; }
+				.hero {
+					padding: 3em 1em 2.25em;
+					border-radius: 10px;
+				}
 			}
 		</style>
 	</head>
@@ -271,7 +284,7 @@ const posts = blogFeatured.length ? blogFeatured : blogRecent;
 					{changelogs.map(c => (
 						<li>
 							<time datetime={c.data.pubDate.toISOString()}>
-								{c.data.pubDate.toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' })}
+								{c.data.pubDate.toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}
 							</time>
 							<a href={c.data.repo || '#'} target={c.data.repo ? '_blank' : undefined}>
 								{c.data.title}

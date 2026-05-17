@@ -1,7 +1,7 @@
 ---
 title: "bbfans-portal goes live"
 description: "基于 Astro 的 bbfans 个人技术门户正式上线 · 集成内容聚合、知识库与项目导航"
-pubDate: 2025-05-20
+pubDate: 2026-05-20
 changeType: "new"
 project: "bbfans-portal"
 repo: "https://github.com/bbfans/bbfans-portal"

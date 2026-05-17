@@ -1,7 +1,7 @@
 ---
 title: "Hermes Desktop v0.5.3 — Web UI upgrade"
 description: "基于 Hermes Agent Web UI 的 Hermes Desktop 迎来 v0.5.3 · 升级 Web UI 组件与响应式布局"
-pubDate: 2025-05-15
+pubDate: 2026-05-15
 changeType: "update"
 project: "hermes-desktop"
 ---

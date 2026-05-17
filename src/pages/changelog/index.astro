@@ -101,7 +101,7 @@ const changelogs = (await getCollection('changelog')).sort(
 				{changelogs.map((entry) => (
 					<li class="changelog-item">
 						<time class="changelog-date" datetime={entry.data.pubDate.toISOString()}>
-							{entry.data.pubDate.toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' })}
+							{entry.data.pubDate.toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}
 						</time>
 						<article class="changelog-content">
 							<h2>

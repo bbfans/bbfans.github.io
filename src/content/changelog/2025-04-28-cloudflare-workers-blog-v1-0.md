@@ -1,7 +1,7 @@
 ---
 title: "cloudflare-workers-blog v1.0"
 description: "Cloudflare Workers + R2 驱动的静态博客生成器正式发布 · blog.1001020.xyz 上线运行"
-pubDate: 2025-04-28
+pubDate: 2026-04-28
 changeType: "new"
 project: "blog-1001020"
 repo: "https://github.com/bbfans/cloudflare-workers-blog"
