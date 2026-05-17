@@ -1,0 +1,124 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE } from '../../consts';
+
+const changelogs = (await getCollection('changelog')).sort(
+	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Changelog | ${SITE_TITLE}`} description="Recent shipping notes and project updates from bbfans." />
+		<style>
+			main {
+				width: min(840px, calc(100% - 2em));
+			}
+			.changelog-hero {
+				padding: 2.5em 0 1.5em;
+			}
+			.changelog-hero p {
+				color: rgb(var(--gray));
+				margin: 0;
+			}
+			.changelog-list {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				border-top: 1px solid rgb(var(--gray-light));
+			}
+			.changelog-item {
+				display: grid;
+				grid-template-columns: 9.5rem 1fr;
+				gap: 1.25rem;
+				padding: 1.25rem 0;
+				border-bottom: 1px solid rgb(var(--gray-light));
+			}
+			.changelog-date {
+				color: rgb(var(--gray));
+				font-size: .88em;
+				font-variant-numeric: tabular-nums;
+			}
+			.changelog-content h2 {
+				font-size: 1.2em;
+				margin: 0 0 .35rem;
+			}
+			.changelog-content h2 a {
+				color: rgb(var(--black));
+				text-decoration: none;
+			}
+			.changelog-content h2 a:hover {
+				color: var(--accent);
+			}
+			.changelog-content p {
+				color: rgb(var(--gray));
+				font-size: .95em;
+				margin: 0;
+			}
+			.meta-row {
+				display: flex;
+				align-items: center;
+				gap: .5rem;
+				flex-wrap: wrap;
+				margin-top: .65rem;
+			}
+			.status-badge {
+				font-size: .72em;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: .04em;
+				padding: .1em .55em;
+				border-radius: 99px;
+			}
+			.status-badge.new { background: #dbeafe; color: #1e3a8a; }
+			.status-badge.update { background: #fef3c7; color: #92400e; }
+			.status-badge.deprecated { background: #fee2e2; color: #991b1b; }
+			.project-name {
+				color: rgb(var(--gray));
+				font-size: .82em;
+			}
+			@media (max-width: 720px) {
+				.changelog-item {
+					grid-template-columns: 1fr;
+					gap: .35rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="changelog-hero">
+				<h1>Changelog</h1>
+				<p>Recent shipping notes, project updates, and release markers.</p>
+			</section>
+
+			<ol class="changelog-list">
+				{changelogs.map((entry) => (
+					<li class="changelog-item">
+						<time class="changelog-date" datetime={entry.data.pubDate.toISOString()}>
+							{entry.data.pubDate.toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' })}
+						</time>
+						<article class="changelog-content">
+							<h2>
+								<a href={entry.data.repo || '#'} target={entry.data.repo ? '_blank' : undefined}>
+									{entry.data.title}
+								</a>
+							</h2>
+							<p>{entry.data.description}</p>
+							<div class="meta-row">
+								<span class={`status-badge ${entry.data.changeType}`}>{entry.data.changeType}</span>
+								{entry.data.project && <span class="project-name">{entry.data.project}</span>}
+							</div>
+						</article>
+					</li>
+				))}
+			</ol>
+		</main>
+		<Footer />
+	</body>
+</html>

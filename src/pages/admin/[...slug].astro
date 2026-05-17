@@ -1,6 +1,5 @@
 ---
 // src/pages/admin/[...slug].astro
-// Decap CMS admin entry — minimal standalone page that loads cms.yml config
 export const prerender = false;
 ---
 
@@ -9,37 +8,76 @@ export const prerender = false;
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
   <title>CMS Admin — bbfans-portal</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/decap-cms@^3/dist/decap-cms.min.css" />
   <style>body{background:#f5f5f5;margin:0}</style>
 </head>
 <body>
-  <div id="root"></div>
-  <script src="https://cdn.jsdelivr.net/npm/decap-cms@^3/dist/decap-cms.min.js"></script>
-  <script>
-    // Redirect /admin/<anything> → /admin/
-    if (window.location.pathname !== '/admin/' && window.location.pathname.startsWith('/admin/')) {
+  <!-- 1. Block CMS auto-init so we can inject config manually -->
+  <script is:inline>
+    window.CMS_MANUAL_INIT = true;
+  </script>
+
+  <!-- 2. Set config BEFORE cms.js loads -->
+  <script is:inline>
+    window.CONFIG = {
+      load_config_file: false,
+      backend: {
+        name: 'github',
+        repo: 'bbfans/bbfans.github.io',
+        branch: 'main',
+        base_url: 'https://bbfans-portal.jiechen2013.workers.dev',
+        auth_endpoint: '/api/auth',
+      },
+      media_folder: 'public/blog-images',
+      public_folder: 'https://img.1001020.xyz',
+      collections: [
+        {
+          name: 'blog',
+          label: 'Posts',
+          folder: 'src/content/blog',
+          create: true,
+          slug: '{{year}}-{{month}}-{{slug}}',
+          fields: [
+            { label: 'Title',        name: 'title',       widget: 'string', required: true },
+            { label: 'Description',  name: 'description', widget: 'text',   required: true },
+            { label: 'Publish Date', name: 'pubDate',     widget: 'datetime', required: true, format: 'YYYY-MM-DD' },
+            { label: 'Tags',         name: 'tags',        widget: 'list',   required: false, default: [] },
+            { label: 'Hero Image',   name: 'heroImage',   widget: 'image',  required: false },
+            { label: 'Body',         name: 'body',        widget: 'markdown', required: true },
+          ],
+        },
+        {
+          name: 'projects',
+          label: 'Projects',
+          folder: 'src/content/projects',
+          create: true,
+          slug: '{{slug}}',
+          fields: [
+            { label: 'Title',        name: 'title',       widget: 'string', required: true },
+            { label: 'Description',  name: 'description', widget: 'text',   required: true },
+            { label: 'Status',       name: 'status',      widget: 'select',
+              options: ['active', 'shipping', 'deprecated'], default: 'active' },
+            { label: 'Highlight',    name: 'highlight',   widget: 'boolean', default: false },
+            { label: 'URL',          name: 'url',         widget: 'string', required: false },
+            { label: 'Publish Date', name: 'pubDate',     widget: 'datetime', required: false, format: 'YYYY-MM-DD' },
+          ],
+        },
+      ],
+    };
+
+    // Redirect /admin/* to /admin/
+    if (window.location.pathname !== '/admin/'
+        && window.location.pathname.startsWith('/admin/')) {
       window.location.replace('/admin/');
     }
   </script>
-  <script>
-    // Load the CMS YAML config at runtime so the admin UI stays in sync
-    fetch('/cms.yml')
-      .then(function(r) { return r.text(); })
-      .then(function(yamlText) {
-        // Initialise Decap CMS with the full YAML config
-        CMS.init({ config: { backend: { name: 'git-gateway' } } });
-      })
-      .catch(function() {
-        CMS.init({
-          config: {
-            backend: { name: 'git-gateway' },
-            media_folder: 'public/blog-images',
-            public_folder: 'https://img.1001020.xyz',
-            collections: [],
-          },
-        });
-      });
-  </script>
+
+  <!-- 3. Load decap-cms, init when ready -->
+  <script
+    is:inline
+    src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
+    onload="window.initCMS({ config: window.CONFIG })"
+  ></script>
 </body>
 </html>

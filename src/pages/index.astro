@@ -38,6 +38,39 @@ const posts = blogFeatured.length ? blogFeatured : blogRecent;
 				width: min(960px, calc(100% - 2em));
 				padding: 3em 1em;
 			}
+			.theme-toggle {
+				position: fixed;
+				right: 1rem;
+				bottom: 1rem;
+				z-index: 20;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				width: 2.4rem;
+				height: 2.4rem;
+				border: 1px solid rgba(var(--gray), 35%);
+				border-radius: 999px;
+				background: rgb(var(--page-bg));
+				color: rgb(var(--black));
+				box-shadow: 0 8px 24px rgba(var(--black), 12%);
+				cursor: pointer;
+				transition: transform 0.18s ease, border-color 0.18s ease;
+			}
+			.theme-toggle:hover {
+				border-color: var(--accent);
+				transform: translateY(-1px);
+			}
+			.theme-toggle:active {
+				transform: scale(0.96);
+			}
+			.theme-toggle svg {
+				width: 1.2rem;
+				height: 1.2rem;
+			}
+			html[data-theme="dark"] .theme-toggle .moon-icon,
+			html:not([data-theme="dark"]) .theme-toggle .sun-icon {
+				display: none;
+			}
 			/* ── Hero ── */
 			.hero {
 				text-align: center;
@@ -116,6 +149,9 @@ const posts = blogFeatured.length ? blogFeatured : blogRecent;
 			}
 			.status-badge.shipping { background: #d1fae5; color: #065f46; }
 			.status-badge.active   { background: #ede9fe; color: #4c1d95; }
+			.status-badge.new { background: #dbeafe; color: #1e3a8a; }
+			.status-badge.update { background: #fef3c7; color: #92400e; }
+			.status-badge.deprecated { background: #fee2e2; color: #991b1b; }
 			/* ── Changelog feed ── */
 			.changelog-feed {
 				list-style: none;
@@ -184,6 +220,14 @@ const posts = blogFeatured.length ? blogFeatured : blogRecent;
 	</head>
 	<body>
 		<Header />
+		<button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+			<svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+				<path fill="currentColor" d="M21 14.8A8.5 8.5 0 0 1 9.2 3a7 7 0 1 0 11.8 11.8Z"></path>
+			</svg>
+			<svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+				<path fill="currentColor" d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0 4a1 1 0 0 1-1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 1-1 1Zm0-18a1 1 0 0 1-1-1V2a1 1 0 1 1 2 0v1a1 1 0 0 1-1 1Zm10 8a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1ZM4 12a1 1 0 0 1-1 1H2a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1Zm15.1 7.1a1 1 0 0 1-1.4 0l-.7-.7a1 1 0 0 1 1.4-1.4l.7.7a1 1 0 0 1 0 1.4ZM7 7a1 1 0 0 1-1.4 0l-.7-.7A1 1 0 1 1 6.3 4.9l.7.7A1 1 0 0 1 7 7Zm12.1-2.1a1 1 0 0 1 0 1.4l-.7.7A1 1 0 0 1 17 5.6l.7-.7a1 1 0 0 1 1.4 0ZM7 17a1 1 0 0 1 0 1.4l-.7.7a1 1 0 0 1-1.4-1.4l.7-.7A1 1 0 0 1 7 17Z"></path>
+			</svg>
+		</button>
 		<main>
 			<!-- ══ Hero ══ -->
 			<section class="hero">
@@ -204,7 +248,7 @@ const posts = blogFeatured.length ? blogFeatured : blogRecent;
 								<a href={p.data.url || p.data.repo || '#'} target={p.data.url ? '_blank' : undefined}>
 									{p.data.title}
 								</a>
-								<span class="status-badge {p.data.status}">{p.data.status}</span>
+								<span class={`status-badge ${p.data.status}`}>{p.data.status}</span>
 							</h3>
 							<p>{p.data.description}</p>
 							<div class="tags">
@@ -232,7 +276,7 @@ const posts = blogFeatured.length ? blogFeatured : blogRecent;
 							<a href={c.data.repo || '#'} target={c.data.repo ? '_blank' : undefined}>
 								{c.data.title}
 							</a>
-							<span class="status-badge {c.data.changeType}">{c.data.changeType}</span>
+							<span class={`status-badge ${c.data.changeType}`}>{c.data.changeType}</span>
 							<p class="changelog-desc">{c.data.description}</p>
 						</li>
 					))}
@@ -263,5 +307,23 @@ const posts = blogFeatured.length ? blogFeatured : blogRecent;
 			</section>
 		</main>
 		<Footer />
+		<script>
+			const themeToggle = document.querySelector('.theme-toggle');
+			const syncThemeButton = () => {
+				const isDark = document.documentElement.dataset.theme === 'dark';
+				themeToggle?.setAttribute('aria-pressed', String(isDark));
+			};
+			syncThemeButton();
+			themeToggle?.addEventListener('click', () => {
+				const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+				if (nextTheme === 'dark') {
+					document.documentElement.dataset.theme = 'dark';
+				} else {
+					delete document.documentElement.dataset.theme;
+				}
+				localStorage.setItem('theme', nextTheme);
+				syncThemeButton();
+			});
+		</script>
 	</body>
 </html>

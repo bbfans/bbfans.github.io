@@ -1,7 +1,8 @@
 backend:
-  name: git-gateway
+  name: github
   repo: bbfans/bbfans.github.io
-  base_url: https://bbfans-portal.pages.dev
+  branch: main
+  base_url: https://bbfans-portal.jiechen2013.workers.dev
   auth_endpoint: /api/auth
 
 media_folder: "public/blog-images"
