@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+const projects = (await getCollection('projects'))
+	.filter((project) => project.data.published)
+	.sort((a, b) => (b.data.pubDate?.getTime() || 0) - (a.data.pubDate?.getTime() || 0));
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Projects | ${SITE_TITLE}`} description="Projects and tools from bbfans." />
+		<style>
+			main {
+				width: min(960px, calc(100% - 2rem));
+			}
+			.projects-hero {
+				padding: 2.5em 0 1.25em;
+			}
+			.projects-hero p {
+				color: rgb(var(--gray));
+				margin: 0;
+			}
+			.project-list {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+				gap: 1rem;
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.project-card {
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				padding: 1.1rem;
+			}
+			.project-card h2 {
+				font-size: 1.2em;
+				margin: 0 0 0.4rem;
+			}
+			.project-card h2 a {
+				color: rgb(var(--black));
+				text-decoration: none;
+			}
+			.project-card h2 a:hover {
+				color: var(--accent);
+			}
+			.project-card p {
+				color: rgb(var(--gray));
+				font-size: 0.95em;
+				line-height: 1.55;
+				margin: 0 0 0.8rem;
+			}
+			.tag-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.35rem;
+			}
+			.tag {
+				background: rgb(var(--gray-light));
+				border-radius: 99px;
+				font-size: 0.75em;
+				padding: 0.15rem 0.55rem;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="projects-hero">
+				<h1>Projects</h1>
+				<p>Tools, experiments, and small systems I am actively maintaining.</p>
+			</section>
+			<ul class="project-list">
+				{projects.map((project) => (
+					<li class="project-card">
+						<h2>
+							<a href={project.data.url || project.data.repo || '#'} target={project.data.url || project.data.repo ? '_blank' : undefined}>
+								{project.data.title}
+							</a>
+						</h2>
+						<p>{project.data.description}</p>
+						<div class="tag-row">
+							{project.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+						</div>
+					</li>
+				))}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>

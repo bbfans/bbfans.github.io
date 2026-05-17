@@ -14,6 +14,7 @@ collections:
     folder: "src/content/blog"
     create: true
     slug: "{{year}}-{{month}}-{{slug}}"
+    summary: "{{title}} — {{published}} / homepage: {{featured}}"
     fields:
       - label: "Title"
         name: title
@@ -31,15 +32,20 @@ collections:
         name: published
         widget: boolean
         default: true
+      - label: "Show on homepage"
+        name: featured
+        widget: boolean
+        default: false
       - label: "Tags"
         name: tags
         widget: list
         required: false
         default: []
-      - label: "Hero Image"
+      - label: "Hero Image URL"
         name: heroImage
-        widget: image
+        widget: string
         required: false
+        hint: "Use an R2/CDN URL, for example https://img.1001020.xyz/blog-images/example.jpg, or a local /blog-placeholder image."
       - label: "Body"
         name: body
         widget: markdown
@@ -50,6 +56,7 @@ collections:
     folder: "src/content/projects"
     create: true
     slug: "{{slug}}"
+    summary: "{{title}} — {{published}} / homepage: {{highlight}}"
     fields:
       - label: "Title"
         name: title
@@ -67,7 +74,7 @@ collections:
           - "shipping"
           - "deprecated"
         default: "active"
-      - label: "Highlight"
+      - label: "Show on homepage"
         name: highlight
         widget: boolean
         default: false
@@ -79,16 +86,35 @@ collections:
         name: url
         widget: string
         required: false
+      - label: "Repo"
+        name: repo
+        widget: string
+        required: false
+      - label: "Tags"
+        name: tags
+        widget: list
+        required: false
+        default: []
+      - label: "Hero Image URL"
+        name: heroImage
+        widget: string
+        required: false
+        hint: "Use an R2/CDN URL or a local /blog-placeholder image."
       - label: "Publish Date"
         name: pubDate
         widget: datetime
         required: false
+      - label: "Body"
+        name: body
+        widget: markdown
+        required: true
 
   - name: "changelog"
     label: "Changelog"
     folder: "src/content/changelog"
     create: true
     slug: "{{year}}-{{month}}-{{slug}}"
+    summary: "{{title}} — {{published}}"
     fields:
       - label: "Title"
         name: title
