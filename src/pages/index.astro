@@ -367,6 +367,9 @@ const posts = blogFeatured.length ? blogFeatured : blogRecent;
 		</main>
 		<Footer />
 		<script>
+			const umamiTrack = (...args) => {
+				window.umami?.track?.(...args);
+			};
 			const themeToggle = document.querySelector('.theme-toggle');
 			const syncThemeButton = () => {
 				const isDark = document.documentElement.dataset.theme === 'dark';
@@ -382,6 +385,7 @@ const posts = blogFeatured.length ? blogFeatured : blogRecent;
 				}
 				localStorage.setItem('theme', nextTheme);
 				syncThemeButton();
+				umamiTrack('theme-toggle', { theme: nextTheme });
 			});
 		</script>
 	</body>
