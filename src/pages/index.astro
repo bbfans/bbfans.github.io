@@ -6,20 +6,24 @@ import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 const projects = (await getCollection('projects'))
+	.filter(p => p.data.published)
 	.filter(p => p.data.highlight)
 	.sort((a, b) => (b.data.pubDate?.getTime() || 0) - (a.data.pubDate?.getTime() || 0))
 	.slice(0, 3);
 
 const changelogs = (await getCollection('changelog'))
+	.filter(c => c.data.published)
 	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
 	.slice(0, 3);
 
 const blogFeatured = (await getCollection('blog'))
+	.filter(p => p.data.published)
 	.filter(p => p.data.featured)
 	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
 	.slice(0, 3);
 
 const blogRecent = (await getCollection('blog'))
+	.filter(p => p.data.published)
 	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
 	.slice(0, 3);
 

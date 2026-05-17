@@ -18,7 +18,7 @@ tags: [Astro, Cloudflare Workers, Personal Branding]
 
 我的个人网站不止博客。它包含：
 
-- **项目卡片页**（projects）：展示 copilot-agent-lite、bifrost-gateway 等项目状态
+- **项目卡片页**（projects）：展示 bbfans-portal、copilot-agent-lite、kijiji-real-time-monitor 等项目状态
 - **上线动态页**（changelog）：不定期发布变更记录
 - **技术博客**（blog）：深度学习文章
 
@@ -45,7 +45,7 @@ tags: [tech]
 
 ```sql
 -- KV schema (概念级)
-key: "blog:2025-04-10-bifrost-gateway"
+key: "blog:2025-05-18-building-kijiji-monitor"
 value: JSON { title, html_content, tags, pubDate }
 ```
 
@@ -91,7 +91,7 @@ ls src/content/
 # changelog vs blog 的结构化 diff
 git diff HEAD~1 src/content/changelog/...  # 上线动态变更
 git diff HEAD~1 src/content/blog/...       # 博客编辑
-git blame src/content/blog/first-post.md   # 内容溯源
+git blame src/content/blog/2025-05-18-building-kijiji-monitor.md   # 内容溯源
 
 # CI 会自动从 ASTRO_DATA_SHEMA 验证 frontmatter
 ```
