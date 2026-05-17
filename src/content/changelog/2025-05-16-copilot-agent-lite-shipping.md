@@ -2,6 +2,7 @@
 title: "copilot-agent-lite goes shipping"
 description: "超轻量 Copilot subscription agent 正式上线 · 支持 YAML agent 配置、cron 调度与 MCP server 透传"
 pubDate: 2026-05-16
+published: true
 changeType: "new"
 project: "copilot-agent-lite"
 repo: "https://github.com/bbfans/copilot-agent-lite"

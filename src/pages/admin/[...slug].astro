@@ -35,6 +35,16 @@ export const prerender = false;
   <a class="r2-media-link" href="/admin/r2-media/">R2 Media</a>
   <!-- 1. Block CMS auto-init so we can inject config manually -->
   <script is:inline>
+    if (window.location.hash === '#/media') {
+      window.location.replace('/admin/r2-media/');
+    }
+
+    window.addEventListener('hashchange', () => {
+      if (window.location.hash === '#/media') {
+        window.location.replace('/admin/r2-media/');
+      }
+    });
+
     window.CMS_MANUAL_INIT = true;
   </script>
 
@@ -103,13 +113,13 @@ export const prerender = false;
           summary: '{{title}} — {{published}}',
           fields: [
             { label: 'Title',        name: 'title',       widget: 'string', required: true },
+            { label: 'Published',    name: 'published',   widget: 'boolean', default: true },
             { label: 'Description',  name: 'description', widget: 'text',   required: true },
             { label: 'Publish Date', name: 'pubDate',     widget: 'datetime', required: true, format: 'YYYY-MM-DD' },
             { label: 'Change Type',  name: 'changeType',  widget: 'select',
               options: ['new', 'update', 'deprecated'], default: 'new' },
             { label: 'Project',      name: 'project',     widget: 'string', required: false },
             { label: 'Repo',         name: 'repo',        widget: 'string', required: false },
-            { label: 'Published',    name: 'published',   widget: 'boolean', default: true },
             { label: 'Body',         name: 'body',        widget: 'markdown', required: true },
           ],
         },
