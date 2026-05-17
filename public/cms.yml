@@ -5,6 +5,8 @@ backend:
   base_url: https://bbfans-portal.jiechen2013.workers.dev
   auth_endpoint: /api/auth
 
+# Decap's built-in Media Gallery is Git-backed. Use /admin/r2-media/
+# for the bbfans-portal-images R2 bucket.
 media_folder: "public/blog-images"
 public_folder: "https://img.1001020.xyz"
 
@@ -45,7 +47,7 @@ collections:
         name: heroImage
         widget: string
         required: false
-        hint: "Use an R2/CDN URL, for example https://img.1001020.xyz/blog-images/example.jpg, or a local /blog-placeholder image."
+        hint: "Open R2 Media, upload/select an image from bbfans-portal-images, then paste the copied https://img.1001020.xyz/blog-images/... URL here."
       - label: "Body"
         name: body
         widget: markdown
@@ -99,7 +101,7 @@ collections:
         name: heroImage
         widget: string
         required: false
-        hint: "Use an R2/CDN URL or a local /blog-placeholder image."
+        hint: "Open R2 Media, upload/select an image from bbfans-portal-images, then paste the copied https://img.1001020.xyz/blog-images/... URL here."
       - label: "Publish Date"
         name: pubDate
         widget: datetime

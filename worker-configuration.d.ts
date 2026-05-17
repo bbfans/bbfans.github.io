@@ -7,6 +7,7 @@ declare namespace Cloudflare {
 	}
 	interface Env {
 		ASSETS: Fetcher;
+		BLOG_IMAGES: R2Bucket;
 	}
 }
 interface Env extends Cloudflare.Env {}
