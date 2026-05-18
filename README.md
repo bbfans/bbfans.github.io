@@ -2,10 +2,7 @@
 
 Personal engineering portal for bbfans.
 
-Live sites:
-
-- GitHub Pages: https://bbfans.github.io/
-- Cloudflare Workers: https://bbfans-portal.jiechen2013.workers.dev/
+Live site: https://bbfans.github.io/
 
 ## What This Site Contains
 
@@ -13,8 +10,7 @@ Live sites:
 - Blog posts and changelog entries from local content collections
 - Dark mode support
 - Responsive mobile layout
-- PWA manifest and service worker for Android install support
-- Admin portal deployed on Cloudflare Workers
+- PWA manifest for Android install support
 
 ## Project Layout
 
@@ -23,9 +19,8 @@ src/components/        Shared layout and page components
 src/content/blog/      Blog posts
 src/content/changelog/ Release and shipping notes
 src/content/projects/  Project cards shown on the homepage
-src/pages/             Site routes and API endpoints
+src/pages/             Site routes
 public/                Static assets, PWA files, fonts, and images
-wrangler.json          Cloudflare Workers deployment config
 ```
 
 ## Development
@@ -54,7 +49,7 @@ Run the project check:
 npm run check
 ```
 
-Deploy to Cloudflare Workers:
+Deploy the admin runtime:
 
 ```bash
 npm run deploy

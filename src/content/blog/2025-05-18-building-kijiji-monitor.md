@@ -29,7 +29,7 @@ goals = {
 
 ```
 Playwright (headless Firefox)
-    → 绕过 Kijiji Cloudflare 挑战页 / JS 渲染
+    → 处理 Kijiji 验证页 / JS 渲染
     → xpath / querySelector 稳定选择器
     ↓
 Python 提取层
@@ -48,7 +48,7 @@ Telegram Bot API
 
 ## Playwright 反爬对抗
 
-Kijiji 的基础反爬：Cloudflare Turnstile（免费版）+ 请求频率检测 + IP 封锁。
+Kijiji 的基础反爬：交互式验证页 + 请求频率检测 + IP 封锁。
 
 ###接入基础防检测
 
@@ -192,7 +192,7 @@ async def monitoring_job():
 
 | 坑          | 根因                          | 解法                                   |
 |-------------|-------------------------------|----------------------------------------|
-| Kijiji 验证页  | Cloudflare Turnstile          | 首次 headful 登录存 cookie，后续复用  |
+| Kijiji 验证页  | 交互式验证                    | 首次 headful 登录存 cookie，后续复用  |
 | price 解析     | "$ 1, 200 . 00" 格式混乱      | `re.sub(r'[^\d.]', '', raw)` 剥离所有符号 |
 | 重复推送       | 同一 listing 在多次抓取中出现  | `url UNIQUE index` + `alert_sent` flag  |
 | Telegram 超长消息 | caption 4096 字符限制         | 截断到 4000 字符，附 "..." 和原文链接     |

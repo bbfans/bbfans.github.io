@@ -8,4 +8,4 @@ project: bbfans-portal
 repo: https://github.com/bbfans/bbfans-portal
 ---
 
-以 Astro 为核心的静态技术门户，统一展示个人项目、技术笔记与知识库，集成 Cloudflare Pages 进行全球 CDN 分发，进入可部署状态。
+以 Astro 为核心的静态技术门户，统一展示个人项目、技术笔记与知识库，进入可部署状态。

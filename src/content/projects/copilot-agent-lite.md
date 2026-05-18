@@ -17,4 +17,4 @@ pubDate: 2025-05-16
 - Web UI 内置 agent 列表、任务状态、执行日志
 - 轻量部署：Docker 或 pip install
 
-**当前状态: shipping → qbittorrent / auto-worker 双线运行中**
+**当前状态: shipping → qbittorrent / automation runtime 双线运行中**
