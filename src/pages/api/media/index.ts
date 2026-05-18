@@ -3,7 +3,8 @@ import type { APIContext } from "astro";
 export const prerender = false;
 
 const GITHUB_REPO = "bbfans/bbfans.github.io";
-const R2_PREFIX = "blog-images/";
+const R2_BUCKET_NAME = "blog-images-1001020";
+const R2_PREFIX = "blog-img/";
 const PUBLIC_BASE_URL = "https://img.1001020.xyz";
 
 type GitHubRepoResponse = {
@@ -115,7 +116,7 @@ export async function GET({ locals, request }: APIContext): Promise<Response> {
 	}));
 
 	return json({
-		bucket: "bbfans-portal-images",
+		bucket: R2_BUCKET_NAME,
 		prefix: R2_PREFIX,
 		publicBaseUrl: PUBLIC_BASE_URL,
 		objects,

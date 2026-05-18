@@ -60,7 +60,7 @@ export const prerender = false;
         auth_endpoint: '/api/auth',
       },
       // Decap's built-in Media Gallery is Git-backed. Use /admin/r2-media/
-      // for the bbfans-portal-images R2 bucket.
+      // for the blog-images-1001020 R2 bucket.
       media_folder: 'public/blog-images',
       public_folder: 'https://img.1001020.xyz',
       collections: [
@@ -78,7 +78,7 @@ export const prerender = false;
             { label: 'Published',    name: 'published',   widget: 'boolean', default: true },
             { label: 'Show on homepage', name: 'featured', widget: 'boolean', default: false },
             { label: 'Tags',         name: 'tags',        widget: 'list',   required: false, default: [] },
-            { label: 'Hero Image URL', name: 'heroImage', widget: 'string', required: false, hint: 'Open R2 Media, upload/select an image from bbfans-portal-images, then paste the copied https://img.1001020.xyz/blog-images/... URL here.' },
+            { label: 'Hero Image URL', name: 'heroImage', widget: 'string', required: false, hint: 'Open R2 Media, upload/select an image from blog-images-1001020, then paste the copied https://img.1001020.xyz/blog-img/... URL here.' },
             { label: 'Body',         name: 'body',        widget: 'markdown', required: true },
           ],
         },
@@ -99,7 +99,7 @@ export const prerender = false;
             { label: 'URL',          name: 'url',         widget: 'string', required: false },
             { label: 'Repo',         name: 'repo',        widget: 'string', required: false },
             { label: 'Tags',         name: 'tags',        widget: 'list', required: false, default: [] },
-            { label: 'Hero Image URL', name: 'heroImage', widget: 'string', required: false, hint: 'Open R2 Media, upload/select an image from bbfans-portal-images, then paste the copied https://img.1001020.xyz/blog-images/... URL here.' },
+            { label: 'Hero Image URL', name: 'heroImage', widget: 'string', required: false, hint: 'Open R2 Media, upload/select an image from blog-images-1001020, then paste the copied https://img.1001020.xyz/blog-img/... URL here.' },
             { label: 'Publish Date', name: 'pubDate',     widget: 'datetime', required: false, format: 'YYYY-MM-DD' },
             { label: 'Body',         name: 'body',        widget: 'markdown', required: true },
           ],

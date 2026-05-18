@@ -22,7 +22,7 @@
 	"r2_buckets": [
 		{
 			"binding": "BLOG_IMAGES",
-			"bucket_name": "bbfans-portal-images"
+			"bucket_name": "blog-images-1001020"
 		}
 	]
 }

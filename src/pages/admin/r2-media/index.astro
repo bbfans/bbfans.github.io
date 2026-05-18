@@ -187,7 +187,7 @@ export const prerender = false;
 	<header>
 		<div>
 			<h1>R2 Media</h1>
-			<div class="meta">Bucket: bbfans-portal-images · Prefix: blog-images/</div>
+			<div class="meta">Bucket: blog-images-1001020 · Prefix: blog-img/</div>
 		</div>
 		<a class="button" href="/admin/">Back to CMS</a>
 	</header>
@@ -261,7 +261,7 @@ export const prerender = false;
 			if (objects.length === 0) {
 				const empty = document.createElement("div");
 				empty.className = "empty";
-				empty.textContent = "No images found in bbfans-portal-images/blog-images/.";
+				empty.textContent = "No images found in blog-images-1001020/blog-img/. Upload an image to create the first object.";
 				grid.append(empty);
 				return;
 			}
