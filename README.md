@@ -56,3 +56,9 @@ npm run deploy
 ```
 
 GitHub Pages is deployed by the workflow in `.github/workflows/pages.yml` when changes are pushed to `main`.
+
+## To Do
+
+- Raise the Agent Ready score from Level 2 / 83 by adding real `Link` response headers on the homepage.
+- Support `Accept: text/markdown` for agent requests so the homepage can return Markdown instead of only HTML.
+- These two items need an edge layer or hosting change; GitHub Pages alone cannot emit the required response headers or content negotiation.
