@@ -1,11 +1,17 @@
 ---
-title: "用 Playwright + Telegram 构建 Kijiji 轮毂实时监控"
-description: "从头到尾搭建一名轮毂监控 agent 的技术栈选择与踩坑：Playwright 反爬对抗、Telegram bot 推送、价格历史存储、APScheduler 定时调度"
-pubDate: 2025-05-18
+heroImage: https://img.1001020.xyz/blog-img/kijiji-2026-05-23.jpeg
 updatedDate: 2025-05-18
+title: 用 Playwright + Telegram 构建 Kijiji 轮毂实时监控
+description: 从头到尾搭建一名轮毂监控 agent 的技术栈选择与踩坑：Playwright 反爬对抗、Telegram bot
+  推送、价格历史存储、APScheduler 定时调度
+pubDate: 2025-05-18
+published: true
 featured: true
-heroImage: "/blog-placeholder-4.jpg"
-tags: [Playwright, Python, Telegram, Web Scraping]
+tags:
+  - Playwright
+  - Python
+  - Telegram
+  - Web Scraping
 ---
 
 ## 从需求到技术选型
