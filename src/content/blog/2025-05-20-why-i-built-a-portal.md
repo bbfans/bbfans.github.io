@@ -1,11 +1,15 @@
 ---
-title: "为什么我选择 Astro 而不是纯博客"
-description: "从传统博客到 Astro — 我为什么需要一个项目卡片 + 上线动态 + 技术博客三位一体的个人技术门户，以及为什么 Astro Content Collections 是最佳基础设施层"
-pubDate: 2025-05-20
+heroImage: https://img.1001020.xyz/blog-img/home-2026-05-23.jpeg
 updatedDate: 2025-05-20
+title: 为什么我选择 Astro 而不是纯博客
+description: 从传统博客到 Astro — 我为什么需要一个项目卡片 + 上线动态 + 技术博客三位一体的个人技术门户，以及为什么 Astro
+  Content Collections 是最佳基础设施层
+pubDate: 2025-05-20
+published: true
 featured: true
-heroImage: "/blog-placeholder-3.jpg"
-tags: [Astro, Personal Branding]
+tags:
+  - Astro
+  - Personal Branding
 ---
 
 ## 博客已经不是博客
