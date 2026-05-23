@@ -1,11 +1,18 @@
 ---
-title: "copilot-agent-lite 设计模式：YAML agent + cron + MCP"
-description: "超轻量 GitHub Copilot subscription agent 如何用 YAML 驱动 agent、APScheduler cron 调度、MCP 透明透传，全程 Python / FastAPI / Uvicorn 零外部 broker"
-pubDate: 2025-05-16
+heroImage: https://img.1001020.xyz/blog-img/agent-2026-05-23.jpeg
 updatedDate: 2025-05-16
+title: copilot-agent-lite 设计模式：YAML agent + cron + MCP
+description: 超轻量 GitHub Copilot subscription agent 如何用 YAML 驱动 agent、APScheduler
+  cron 调度、MCP 透明透传，全程 Python / FastAPI / Uvicorn 零外部 broker
+pubDate: 2025-05-16
+published: true
 featured: true
-heroImage: "/blog-placeholder-2.jpg"
-tags: [AI Agent, Python, FastAPI, MCP, GitHub Copilot]
+tags:
+  - AI Agent
+  - Python
+  - FastAPI
+  - MCP
+  - GitHub Copilot
 ---
 
 ## 设计动机：Copilot SDK + 全自动化调度
