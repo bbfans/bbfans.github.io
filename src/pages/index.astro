@@ -3,31 +3,24 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 const projects = (await getCollection('projects'))
-	.filter(p => p.data.published)
-	.filter(p => p.data.highlight)
+	.filter((p) => p.data.published)
+	.filter((p) => p.data.highlight)
 	.sort((a, b) => (b.data.pubDate?.getTime() || 0) - (a.data.pubDate?.getTime() || 0))
 	.slice(0, 3);
 
 const changelogs = (await getCollection('changelog'))
-	.filter(c => c.data.published)
+	.filter((c) => c.data.published)
 	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
 	.slice(0, 3);
 
-const blogFeatured = (await getCollection('blog'))
-	.filter(p => p.data.published)
-	.filter(p => p.data.featured)
-	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-	.slice(0, 3);
-
-const blogRecent = (await getCollection('blog'))
-	.filter(p => p.data.published)
-	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-	.slice(0, 3);
-
-const posts = blogFeatured.length ? blogFeatured : blogRecent;
+const posts = (await getCollection('blog'))
+	.filter((post) => post.data.published)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 4);
 ---
 
 <!doctype html>
@@ -35,362 +28,209 @@ const posts = blogFeatured.length ? blogFeatured : blogRecent;
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
-			:root {
-				--accent: #2337ff;
-			}
 			main {
-				width: min(960px, calc(100% - 2rem));
-				padding: 3em 1em;
+				width: 960px;
 			}
-			.theme-toggle {
-				position: fixed;
-				right: 1rem;
-				bottom: 1rem;
-				z-index: 20;
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				width: var(--tap-size);
-				min-width: var(--tap-size);
-				height: var(--tap-size);
-				border: 1px solid rgba(var(--gray), 35%);
-				border-radius: 999px;
-				background: rgb(var(--page-bg));
-				color: rgb(var(--black));
-				box-shadow: 0 8px 24px rgba(var(--black), 12%);
-				cursor: pointer;
-				transition: transform 0.18s ease, border-color 0.18s ease;
-			}
-			.theme-toggle:hover {
-				border-color: var(--accent);
-				transform: translateY(-1px);
-			}
-			.theme-toggle:active {
-				transform: scale(0.96);
-			}
-			.theme-toggle svg {
-				width: 1.2rem;
-				height: 1.2rem;
-			}
-			html[data-theme="dark"] .theme-toggle .moon-icon,
-			html:not([data-theme="dark"]) .theme-toggle .sun-icon {
-				display: none;
-			}
-			/* ── Hero ── */
 			.hero {
-				position: relative;
-				overflow: hidden;
-				text-align: center;
-				padding: 4.5em 1.5em 3.25em;
-				border-radius: 12px;
-				background:
-					linear-gradient(rgba(10, 16, 30, 0.52), rgba(10, 16, 30, 0.68)),
-					url("/blog-placeholder-3.jpg") center / cover no-repeat;
-				box-shadow: 0 18px 44px rgba(var(--black), 16%);
+				padding: 2.25rem 0 1.5rem;
 			}
 			.hero h1 {
-				position: relative;
-				font-size: 3.2rem;
-				margin-bottom: 0.35em;
-				letter-spacing: 0;
-				color: #fff;
+				font-size: 2.9rem;
+				margin-bottom: 0.4rem;
 			}
 			.hero p {
-				position: relative;
-				font-size: 1.15em;
-				color: rgba(255, 255, 255, 0.88);
+				max-width: 62ch;
+				color: rgb(var(--gray));
 				margin: 0;
 			}
-			/* ── Sections ── */
 			section {
-				margin-bottom: 3.5em;
+				margin-top: 2rem;
 			}
-			section h2 {
-				font-size: 1.4em;
-				margin-bottom: 1em;
-				letter-spacing: 0;
+			.section-head {
+				display: flex;
+				align-items: baseline;
+				justify-content: space-between;
+				gap: 1rem;
+				margin-bottom: 1rem;
 			}
-			/* ── Project cards ── */
-			.project-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-				gap: 1.5em;
+			.section-head h2 {
+				font-size: 1.35rem;
+				margin: 0;
 			}
-			.project-card {
-				border: 1px solid rgb(var(--gray-light));
-				border-radius: 12px;
-				padding: 1.4em;
-				transition: box-shadow 0.2s, border-color 0.2s;
-			}
-			.project-card:hover {
-				border-color: var(--accent);
-				box-shadow: var(--box-shadow);
-			}
-			.project-card h3 {
-				font-size: 1.2em;
-				margin: 0 0 0.4em;
-				overflow-wrap: anywhere;
-			}
-			.project-card h3 a {
-				text-decoration: none;
-				color: rgb(var(--black));
-			}
-			.project-card p {
-				font-size: 0.95em;
-				line-height: 1.55;
-				color: rgb(var(--gray));
-				margin: 0 0 0.8em;
-			}
-			@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-			.project-card { animation: fadein .35s ease-out both; }
-			.project-card:nth-child(2) { animation-delay: .06s; }
-			.project-card:nth-child(3) { animation-delay: .12s; }
-			.tags { display: flex; gap: .35em; flex-wrap: wrap; }
-			.tag {
-				font-size: .75em;
-				background: rgb(var(--gray-light));
-				padding: .15em .6em;
-				border-radius: 99px;
+			.section-head a {
+				font-size: 0.9rem;
 				white-space: nowrap;
 			}
+			.post-grid {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 1.25rem;
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			.post-grid li:first-child {
+				grid-column: 1 / -1;
+			}
+			.post-card {
+				display: block;
+				text-decoration: none;
+			}
+			.post-card img {
+				width: 100%;
+				aspect-ratio: 2 / 1;
+				object-fit: cover;
+				margin-bottom: 0.65rem;
+				border-radius: 8px;
+			}
+			.post-card h3 {
+				font-size: 1.2rem;
+				margin-bottom: 0.25rem;
+			}
+			.post-card p {
+				color: rgb(var(--gray));
+				margin: 0;
+				font-size: 0.95rem;
+			}
+			.date {
+				color: rgb(var(--gray));
+				font-size: 0.9rem;
+				margin: 0 0 0.35rem;
+			}
+			.meta-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: grid;
+				gap: 0.75rem;
+			}
+			.meta-list li {
+				padding-bottom: 0.75rem;
+				border-bottom: 1px solid rgb(var(--gray-light));
+			}
+			.meta-list li:last-child {
+				border-bottom: 0;
+				padding-bottom: 0;
+			}
+			.meta-list h3 {
+				font-size: 1.05rem;
+				margin-bottom: 0.15rem;
+			}
+			.meta-list p {
+				font-size: 0.92rem;
+				color: rgb(var(--gray));
+				margin: 0;
+			}
 			.status-badge {
-				font-size: .72em;
+				font-size: 0.72em;
 				font-weight: 700;
 				text-transform: uppercase;
-				letter-spacing: .04em;
-				padding: .1em .55em;
+				letter-spacing: 0.04em;
+				padding: 0.1em 0.55em;
 				border-radius: 99px;
-				margin-left: .4em;
+				margin-left: 0.4rem;
 				vertical-align: middle;
 			}
 			.status-badge.shipping { background: #d1fae5; color: #065f46; }
-			.status-badge.active   { background: #ede9fe; color: #4c1d95; }
+			.status-badge.active { background: #ede9fe; color: #4c1d95; }
 			.status-badge.new { background: #dbeafe; color: #1e3a8a; }
 			.status-badge.update { background: #fef3c7; color: #92400e; }
-			.status-badge.deprecated { background: #fee2e2; color: #991b1b; }
-			/* ── Changelog feed ── */
-			.changelog-feed {
-				list-style: none;
-				padding: 0;
-				margin: 0;
-				display: flex;
-				flex-direction: column;
-				gap: .75em;
-			}
-			.changelog-feed li {
-				display: flex;
-				align-items: baseline;
-				flex-wrap: wrap;
-				gap: .6em;
-			}
-			.changelog-feed time {
-				font-size: .85em;
-				color: rgb(var(--gray));
-				flex-shrink: 0;
-				font-variant-numeric: tabular-nums;
-			}
-			.changelog-feed li a {
-				font-weight: 700;
-				overflow-wrap: anywhere;
-			}
-			.changelog-desc {
-				font-size: .9em;
-				color: rgb(var(--gray));
-				margin: 0;
-				flex-basis: 100%;
-			}
-			/* ── Post feed ── */
-			.post-feed {
-				list-style: none;
-				padding: 0;
-				margin: 0;
-			}
-			.post-feed li {
-				padding: .8em 0;
-				border-bottom: 1px solid rgb(var(--gray-light));
-			}
-			.post-feed li:last-child { border-bottom: none; }
-			.post-feed a h3 {
-				margin: 0 0 .15em;
-				font-size: 1.1em;
-			}
-			.post-feed a {
-				text-decoration: none;
-				color: rgb(var(--black));
-			}
-			.post-feed li p {
-				font-size: .9em;
-				color: rgb(var(--gray));
-				margin: 0;
-			}
-			/* ── Divider ── */
-			hr {
-				border: none;
-				border-top: 1px solid rgb(var(--gray-light));
-				margin: 2em 0;
-			}
 			@media (max-width: 720px) {
 				main {
 					width: min(100%, calc(100% - 1rem));
-					padding: 1rem 0 1.5rem;
-				}
-				.theme-toggle {
-					right: 0.75rem;
-					bottom: 0.75rem;
 				}
 				.hero {
-					padding: 2.6em 1em 2em;
-					border-radius: 10px;
+					padding-top: 1.25rem;
 				}
 				.hero h1 {
-					font-size: 2.65rem;
+					font-size: 2.2rem;
 				}
-				.hero p {
-					font-size: 1rem;
-					line-height: 1.5;
+				.section-head {
+					flex-direction: column;
+					align-items: flex-start;
+					gap: 0.25rem;
 				}
-				section {
-					margin-bottom: 2.25em;
-				}
-				section h2 {
-					font-size: 1.18em;
-				}
-				.project-grid {
+				.post-grid {
 					grid-template-columns: 1fr;
-					gap: 1rem;
 				}
-				.project-card {
-					padding: 1rem;
-					border-radius: 10px;
-				}
-				.status-badge {
-					display: inline-flex;
-					margin: 0.35rem 0 0;
-				}
-				.changelog-feed li {
-					display: block;
-				}
-				.changelog-feed time {
-					display: block;
-					margin-bottom: 0.15rem;
-				}
-				.post-feed a h3 {
-					font-size: 1rem;
-					line-height: 1.3;
+				.post-grid li:first-child {
+					grid-column: auto;
 				}
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
-		<button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
-			<svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true">
-				<path fill="currentColor" d="M21 14.8A8.5 8.5 0 0 1 9.2 3a7 7 0 1 0 11.8 11.8Z"></path>
-			</svg>
-			<svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
-				<path fill="currentColor" d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0 4a1 1 0 0 1-1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 1-1 1Zm0-18a1 1 0 0 1-1-1V2a1 1 0 1 1 2 0v1a1 1 0 0 1-1 1Zm10 8a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1ZM4 12a1 1 0 0 1-1 1H2a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1Zm15.1 7.1a1 1 0 0 1-1.4 0l-.7-.7a1 1 0 0 1 1.4-1.4l.7.7a1 1 0 0 1 0 1.4ZM7 7a1 1 0 0 1-1.4 0l-.7-.7A1 1 0 1 1 6.3 4.9l.7.7A1 1 0 0 1 7 7Zm12.1-2.1a1 1 0 0 1 0 1.4l-.7.7A1 1 0 0 1 17 5.6l.7-.7a1 1 0 0 1 1.4 0ZM7 17a1 1 0 0 1 0 1.4l-.7.7a1 1 0 0 1-1.4-1.4l.7-.7A1 1 0 0 1 7 17Z"></path>
-			</svg>
-		</button>
 		<main>
-			<!-- ══ Hero ══ -->
 			<section class="hero">
-				<h1>bbfans</h1>
-				<p>AI / Cloud / DevOps Engineer · Building developer tools and AI systems</p>
+				<h1>{SITE_TITLE}</h1>
+				<p>{SITE_DESCRIPTION}</p>
 			</section>
 
-			<hr />
-
-			<!-- ══ Featured Projects ══ -->
-			<section aria-labelledby="projects-heading">
-				<h2 id="projects-heading">🚀 Current Projects</h2>
-				{projects.length === 0 && <p>No highlighted projects yet. Watch this space.</p>}
-				<div class="project-grid">
-					{projects.map(p => (
-						<article class="project-card">
-							<h3>
-								<a href={p.data.url || p.data.repo || '#'} target={p.data.url ? '_blank' : undefined}>
-									{p.data.title}
-								</a>
-								<span class={`status-badge ${p.data.status}`}>{p.data.status}</span>
-							</h3>
-							<p>{p.data.description}</p>
-							<div class="tags">
-								{p.data.tags.map(t => <span class="tag">{t}</span>)}
-							</div>
-						</article>
-					))}
-				</div>
-			</section>
-
-			<hr />
-
-			<!-- ══ Recent Shippings ══ -->
-			<section aria-labelledby="shipping-heading">
-				<h2 id="shipping-heading">📦 Recent Shippings</h2>
-				{changelogs.length === 0 && (
-					<p style="color:rgb(var(--gray))">No changelog entries yet. Add Markdown files to <code>src/content/changelog/</code>.</p>
-				)}
-				<ol class="changelog-feed">
-					{changelogs.map(c => (
-						<li>
-							<time datetime={c.data.pubDate.toISOString()}>
-								{c.data.pubDate.toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}
-							</time>
-							<a href={c.data.repo || '#'} target={c.data.repo ? '_blank' : undefined}>
-								{c.data.title}
-							</a>
-							<span class={`status-badge ${c.data.changeType}`}>{c.data.changeType}</span>
-							<p class="changelog-desc">{c.data.description}</p>
-						</li>
-					))}
-				</ol>
-				<p style="font-size:.85em;color:rgb(var(--gray));margin-top:.6em">
-					<a href="/changelog">View all →</a>
-				</p>
-			</section>
-
-			<hr />
-
-			<!-- ══ Latest Posts ══ -->
 			<section aria-labelledby="posts-heading">
-				<h2 id="posts-heading">📝 Latest Posts</h2>
-				<ul class="post-feed">
-					{posts.map(p => (
+				<div class="section-head">
+					<h2 id="posts-heading">Latest Posts</h2>
+					<a href="/blog">View all</a>
+				</div>
+				<ul class="post-grid">
+					{posts.map((post) => (
 						<li>
-							<a href={`/blog/${p.id}/`}>
-								<h3>{p.data.title}</h3>
+							<a class="post-card" href={`/blog/${post.id}/`}>
+								<img src={post.data.heroImage} alt="" width="720" height="360" />
+								<p class="date">
+									<FormattedDate date={post.data.pubDate} />
+								</p>
+								<h3>{post.data.title}</h3>
+								<p>{post.data.description}</p>
 							</a>
-							<p>{p.data.description}</p>
 						</li>
 					))}
 				</ul>
-				<p style="font-size:.85em;color:rgb(var(--gray));margin-top:.6em">
-					<a href="/blog">All posts →</a>
-				</p>
+			</section>
+
+			<section aria-labelledby="projects-heading">
+				<div class="section-head">
+					<h2 id="projects-heading">Projects</h2>
+					<a href="/projects">View all</a>
+				</div>
+				<ul class="meta-list">
+					{projects.map((project) => (
+						<li>
+							<h3>
+								<a href={project.data.url || project.data.repo || '#'} target={project.data.url ? '_blank' : undefined}>
+									{project.data.title}
+								</a>
+								<span class={`status-badge ${project.data.status}`}>{project.data.status}</span>
+							</h3>
+							<p>{project.data.description}</p>
+						</li>
+					))}
+				</ul>
+			</section>
+
+			<section aria-labelledby="shipping-heading">
+				<div class="section-head">
+					<h2 id="shipping-heading">Shipping</h2>
+					<a href="/changelog">View all</a>
+				</div>
+				<ul class="meta-list">
+					{changelogs.map((item) => (
+						<li>
+							<p class="date">
+								<FormattedDate date={item.data.pubDate} />
+							</p>
+							<h3>
+								<a href={item.data.repo || '#'} target={item.data.repo ? '_blank' : undefined}>
+									{item.data.title}
+								</a>
+								<span class={`status-badge ${item.data.changeType}`}>{item.data.changeType}</span>
+							</h3>
+							<p>{item.data.description}</p>
+						</li>
+					))}
+				</ul>
 			</section>
 		</main>
 		<Footer />
-		<script>
-			const umamiTrack = (...args) => {
-				window.umami?.track?.(...args);
-			};
-			const themeToggle = document.querySelector('.theme-toggle');
-			const syncThemeButton = () => {
-				const isDark = document.documentElement.dataset.theme === 'dark';
-				themeToggle?.setAttribute('aria-pressed', String(isDark));
-			};
-			syncThemeButton();
-			themeToggle?.addEventListener('click', () => {
-				const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-				if (nextTheme === 'dark') {
-					document.documentElement.dataset.theme = 'dark';
-				} else {
-					delete document.documentElement.dataset.theme;
-				}
-				localStorage.setItem('theme', nextTheme);
-				syncThemeButton();
-				umamiTrack('theme-toggle', { theme: nextTheme });
-			});
-		</script>
 	</body>
 </html>
