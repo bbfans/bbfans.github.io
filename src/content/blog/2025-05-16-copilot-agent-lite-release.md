@@ -1,11 +1,17 @@
 ---
-title: "copilot-agent-lite v2.4.3: 超轻量 Copilot Agent Runtime 发布"
-description: "v2.4.3 已发布：YAML 驱动 AI Agent / cron 调度 / MCP stdio runtime bridge / MCP Web UI · 全程 Python + FastAPI"
-pubDate: 2025-05-16
+heroImage: /blog-placeholder-2.jpg
 updatedDate: 2026-05-23
+title: "copilot-agent-lite v2.4.3: 超轻量 Copilot Agent Runtime 发布"
+description: v2.4.3 已发布：YAML 驱动 AI Agent / cron 调度 / MCP stdio runtime bridge /
+  MCP Web UI · 全程 Python + FastAPI
+pubDate: 2025-05-16
+published: true
 featured: true
-heroImage: "/blog-placeholder-2.jpg"
-tags: ["AI Agent", "FastAPI", "OpenAI", "Copilot"]
+tags:
+  - AI Agent
+  - FastAPI
+  - OpenAI
+  - Copilot
 ---
 
 ## 为什么做 copilot-agent-lite？
