@@ -4,6 +4,7 @@ description: "基于 Astro Content Collections 的个人技术门户 — 包含�
 tags: [Astro, Content Collections, TypeScript]
 status: "shipping"
 highlight: true
+published: false
 url: "https://github.com/bbfans/bbfans-portal"
 repo: "https://github.com/bbfans/bbfans-portal"
 pubDate: 2026-05-16
