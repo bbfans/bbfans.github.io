@@ -1,5 +1,5 @@
 ---
-heroImage: https://img.1001020.xyz/blog-img/agent-2026-05-23.jpeg
+heroImage: https://img.1001020.xyz/blog-img/copilot-agent-lite-2026-05-23.jpeg
 updatedDate: 2026-05-23
 title: "copilot-agent-lite v2.4.3: 超轻量 Copilot Agent Runtime 发布"
 description: v2.4.3 已发布：YAML 驱动 AI Agent / cron 调度 / MCP stdio runtime bridge /
