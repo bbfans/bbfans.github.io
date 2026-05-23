@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "0.1",
+  "serverInfo": {
+    "name": "bbfans.github.io",
+    "title": "bbfans Agent Native Site",
+    "version": "2026.05.23",
+    "description": "Static discovery card for bbfans.github.io content, projects, posts, and public status metadata."
+  },
+  "transport": {
+    "type": "webmcp",
+    "endpoint": "https://bbfans.github.io/"
+  },
+  "capabilities": {
+    "tools": true,
+    "resources": true,
+    "prompts": false
+  },
+  "links": {
+    "homepage": "https://bbfans.github.io/",
+    "apiCatalog": "https://bbfans.github.io/.well-known/api-catalog",
+    "skills": "https://bbfans.github.io/.well-known/agent-skills/index.json"
+  }
+}

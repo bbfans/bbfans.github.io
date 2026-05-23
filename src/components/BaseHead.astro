@@ -41,6 +41,7 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 	}
 </script>
 <script is:inline defer src="https://cloud.umami.is/script.js" data-website-id="1bbaf29b-5d43-4648-a555-33fccc07aa79"></script>
+<script defer src="/agent-native.js"></script>
 
 <!-- Font preloads -->
 <link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
@@ -48,6 +49,12 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+<link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json" />
+<link rel="service-desc" href="/openapi.json" type="application/openapi+json" />
+<link rel="service-doc" href="/docs/api/" type="text/html" />
+<link rel="service-desc" href="/.well-known/agent-skills/index.json" type="application/json" />
+<link rel="mcp-server-card" href="/.well-known/mcp/server-card.json" type="application/json" />
+<link rel="alternate" href="/rss.xml" type="application/rss+xml" title="bbfans RSS" />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "robots-txt",
+      "type": "skill-md",
+      "description": "Publishes crawl rules, AI crawler policy, content signals, and sitemap location.",
+      "url": "https://bbfans.github.io/.well-known/agent-skills/robots-txt/SKILL.md",
+      "digest": "sha256:26c93a2c3b305c5b69b59c11503c931bbf97068c5e259c5f72e4f17b3864d664"
+    },
+    {
+      "name": "link-headers",
+      "type": "skill-md",
+      "description": "Documents agent discovery link relations exposed by the site.",
+      "url": "https://bbfans.github.io/.well-known/agent-skills/link-headers/SKILL.md",
+      "digest": "sha256:ff3e462e296675b1843d7464ac311aa26e4834710e208218ee540b70c0a59bad"
+    },
+    {
+      "name": "markdown-negotiation",
+      "type": "skill-md",
+      "description": "Documents markdown alternatives for agent-readable site content.",
+      "url": "https://bbfans.github.io/.well-known/agent-skills/markdown-negotiation/SKILL.md",
+      "digest": "sha256:181ab791e8f600d9362d7a8ba361ffda14924014c44e7ecaa55942a05d9c5150"
+    },
+    {
+      "name": "api-catalog",
+      "type": "skill-md",
+      "description": "Publishes an RFC 9727 API catalog and OpenAPI description.",
+      "url": "https://bbfans.github.io/.well-known/agent-skills/api-catalog/SKILL.md",
+      "digest": "sha256:99ad6583e01e23dec4f11aee70f5abbb67271433e2628c90243302857ad52e9e"
+    },
+    {
+      "name": "webmcp",
+      "type": "skill-md",
+      "description": "Exposes site navigation and discovery tools to compatible browser agents.",
+      "url": "https://bbfans.github.io/.well-known/agent-skills/webmcp/SKILL.md",
+      "digest": "sha256:65e9f51af98ee658a16fca35f172bc5155796070a325dc7f614aabc828709779"
+    }
+  ]
+}

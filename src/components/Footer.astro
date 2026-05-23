@@ -3,7 +3,30 @@ const today = new Date();
 ---
 
 <footer>
-	&copy; {today.getFullYear()} bbfans. All rights reserved.
+	<div class="footer-copy">&copy; {today.getFullYear()} bbfans. All rights reserved.</div>
+	<div class="footer-actions">
+		<a
+			class="agent-native-link"
+			href="https://isitagentready.com/bbfans.github.io"
+			target="_blank"
+			rel="noopener noreferrer"
+			title="Agent-Native readiness report"
+			data-umami-event="footer-agent-native"
+		>
+			<span aria-hidden="true">◇</span>
+			Agent-Native
+		</a>
+		<a
+			class="coffee-link"
+			href="https://buymeacoffee.com/ai.gallery"
+			target="_blank"
+			rel="noopener noreferrer"
+			data-umami-event="footer-buy-me-a-coffee"
+		>
+			<span aria-hidden="true">☕</span>
+			Buy Me a Coffee
+		</a>
+	</div>
 	<div class="social-links">
 		<a href="https://mastodon.social/@bbfans" target="_blank" data-umami-event="footer-social-mastodon">
 			<span class="sr-only">Follow bbfans on Mastodon</span>
@@ -45,6 +68,45 @@ const today = new Date();
 		background: linear-gradient(var(--gray-gradient)) no-repeat;
 		color: rgb(var(--gray));
 		text-align: center;
+	}
+	.footer-copy {
+		margin-bottom: 0.75rem;
+	}
+	.footer-actions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+		margin: 0.75rem 0 0;
+	}
+	.agent-native-link,
+	.coffee-link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.4rem;
+		border-radius: 999px;
+		padding: 0.58rem 0.82rem;
+		font-size: 0.78rem;
+		font-weight: 800;
+		line-height: 1;
+		text-decoration: none;
+		box-shadow: 0 12px 26px rgba(var(--black), 10%);
+		transition: transform 0.18s ease, box-shadow 0.18s ease;
+	}
+	.agent-native-link {
+		background: rgb(var(--black));
+		color: rgb(var(--page-bg));
+	}
+	.coffee-link {
+		background: #ffdd00;
+		color: #111827;
+	}
+	.agent-native-link:hover,
+	.coffee-link:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 16px 30px rgba(var(--black), 14%);
 	}
 	.social-links {
 		display: flex;

@@ -1,0 +1,7 @@
+{
+  "resource": "https://bbfans.github.io",
+  "authorization_servers": ["https://bbfans.github.io"],
+  "scopes_supported": ["read:site"],
+  "bearer_methods_supported": ["header"],
+  "resource_documentation": "https://bbfans.github.io/docs/api/"
+}

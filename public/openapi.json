@@ -1,0 +1,42 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "bbfans public site API",
+    "version": "2026.05.23",
+    "description": "Minimal public API surface for agent discovery on bbfans.github.io."
+  },
+  "servers": [
+    {
+      "url": "https://bbfans.github.io"
+    }
+  ],
+  "paths": {
+    "/api/status.json": {
+      "get": {
+        "summary": "Public site status",
+        "operationId": "getSiteStatus",
+        "responses": {
+          "200": {
+            "description": "Site status and discovery links",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "site": { "type": "string" },
+                    "agent_native": { "type": "boolean" },
+                    "homepage": { "type": "string", "format": "uri" },
+                    "api_catalog": { "type": "string", "format": "uri" },
+                    "skills": { "type": "string", "format": "uri" }
+                  },
+                  "required": ["status", "site", "agent_native"]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

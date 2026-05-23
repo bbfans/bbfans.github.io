@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+Disallow: /_astro/
+Disallow: /.assetsignore
+Content-Signal: ai-train=no, search=yes, ai-input=no
+
+User-agent: GPTBot
+Allow: /
+Disallow: /_astro/
+Content-Signal: ai-train=no, search=yes, ai-input=no
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /_astro/
+Content-Signal: ai-train=no, search=yes, ai-input=no
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /_astro/
+Content-Signal: ai-train=no, search=yes, ai-input=no
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /_astro/
+Content-Signal: ai-train=no, search=yes, ai-input=no
+
+Sitemap: https://bbfans.github.io/sitemap-index.xml

@@ -1,0 +1,9 @@
+{
+  "issuer": "https://bbfans.github.io",
+  "authorization_endpoint": "https://bbfans.github.io/oauth/authorize",
+  "token_endpoint": "https://bbfans.github.io/oauth/token",
+  "jwks_uri": "https://bbfans.github.io/.well-known/jwks.json",
+  "response_types_supported": ["code"],
+  "grant_types_supported": ["authorization_code"],
+  "scopes_supported": ["read:site"]
+}
