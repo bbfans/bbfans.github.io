@@ -4,6 +4,7 @@ description: "超轻量 GitHub Copilot subscription agent runtime — 支持 YAM
 tags: ["AI Agent", "FastAPI", "GitHub Copilot", "Python", "MCP"]
 status: "shipping"
 highlight: true
+published: true
 repo: "https://github.com/bbfans/copilot-agent-lite"
 url: "https://github.com/bbfans/copilot-agent-lite"
 pubDate: 2025-05-16

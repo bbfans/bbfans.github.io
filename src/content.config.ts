@@ -10,7 +10,7 @@ const blog = defineCollection({
 		updatedDate: z.coerce.date().optional(),
 		heroImage: z.string().optional(),
 		featured: z.boolean().default(false),
-		published: z.boolean().default(true),
+		published: z.boolean().default(false),
 	}),
 });
 
@@ -24,7 +24,7 @@ const projects = defineCollection({
 		repo: z.string().optional(),
 		status: z.enum(["active", "shipping", "deprecated"]).default("active"),
 		highlight: z.boolean().default(false),
-		published: z.boolean().default(true),
+		published: z.boolean().default(false),
 		heroImage: z.string().optional(),
 		pubDate: z.coerce.date().optional(),
 	}),
@@ -39,7 +39,7 @@ const changelog = defineCollection({
 		changeType: z.enum(["new", "update", "deprecated"]),
 		project: z.string().optional(),
 		repo: z.string().optional(),
-		published: z.boolean().default(true),
+		published: z.boolean().default(false),
 	}),
 });
 

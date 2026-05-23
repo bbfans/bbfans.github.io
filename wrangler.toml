@@ -1,0 +1,7 @@
+name = "bbfans-portal"
+main = "worker.js"
+compatibility_date = "2025-10-08"
+
+[[r2_buckets]]
+binding = "BLOG_IMAGES"
+bucket_name = "blog-images-1001020"

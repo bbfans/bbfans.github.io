@@ -4,6 +4,7 @@ description: "从 Playwright 自动化驱动的 Kijiji 轮毂/轮胎实时监控
 tags: [Python, Playwright, Telegram, Web Scraping]
 status: "shipping"
 highlight: true
+published: true
 url: "https://github.com/bbfans/kijiji-real-time-monitor"
 repo: "https://github.com/bbfans/kijiji-real-time-monitor"
 pubDate: 2026-05-16
