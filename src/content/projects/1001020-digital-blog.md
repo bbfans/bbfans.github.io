@@ -7,7 +7,7 @@ highlight: true
 published: true
 url: "https://blog.1001020.xyz/"
 pubDate: 2026-05-23
-heroImage: "https://img.1001020.xyz/4f270e7f577240e1bbe30a90a05c45dc.png"
+heroImage: "/blog-placeholder-3.jpg"
 ---
 
 **1001020.xyz** 是一个偏内容产品形态的数字博客入口，目前核心站点运行在 `blog.1001020.xyz`。
